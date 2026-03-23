@@ -27,21 +27,34 @@ const STEPS = [
   { num: "05", label: "Loom video" },
 ];
 
+// Which fields are required per step
+const STEP_REQUIRED_FIELDS: (keyof ApplyFormData)[][] = [
+  ["fullName", "email"],
+  ["problem", "whoHasProblem", "whyNow"],
+  ["whyYou"],
+  [],
+  [],
+];
+
 export default function ApplySlide() {
   const [currentStep, setCurrentStep] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
 
-  const { register, handleSubmit } = useForm<ApplyFormData>();
+  const {
+    register,
+    handleSubmit,
+    trigger,
+    formState: { errors },
+  } = useForm<ApplyFormData>({ mode: "onTouched" });
 
-  const goStep = useCallback(
-    (n: number) => {
-      if (n < 0 || n >= STEPS.length || n === currentStep) return;
-
-      const dir = n > currentStep ? 1 : -1;
+  const animateStep = useCallback(
+    (from: number, to: number) => {
+      const dir = to > from ? 1 : -1;
       const steps = document.querySelectorAll<HTMLDivElement>(".fstep");
-      const outgoing = steps[currentStep];
-      const incoming = steps[n];
+      const outgoing = steps[from];
+      const incoming = steps[to];
 
       if (outgoing) {
         outgoing.classList.remove("active-step");
@@ -64,50 +77,96 @@ export default function ApplySlide() {
           })
         );
       }
+    },
+    []
+  );
 
+  const goStep = useCallback(
+    async (n: number) => {
+      if (n < 0 || n >= STEPS.length || n === currentStep) return;
+
+      // Validate current step fields before going forward
+      if (n > currentStep) {
+        const fieldsToValidate = STEP_REQUIRED_FIELDS[currentStep];
+        if (fieldsToValidate.length > 0) {
+          const valid = await trigger(fieldsToValidate);
+          if (!valid) return;
+        }
+      }
+
+      animateStep(currentStep, n);
       setCurrentStep(n);
     },
-    [currentStep]
+    [currentStep, trigger, animateStep]
   );
 
   const onSubmit = async (data: ApplyFormData) => {
     setSubmitting(true);
+    setSubmitError(false);
     try {
       const res = await fetch("/api/apply", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      if (res.ok) setSubmitted(true);
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        setSubmitError(true);
+      }
     } catch {
-      // handle silently for now
+      setSubmitError(true);
     } finally {
       setSubmitting(false);
     }
   };
 
-  const inputClass =
-    "w-full py-3 px-3.5 bg-white/65 border border-border rounded-sm font-sans text-[15px] text-ink font-light outline-none transition-colors focus:border-gold placeholder:text-ink/[0.35]";
+  const inputBase =
+    "w-full py-3 px-3.5 bg-white/65 border rounded-sm font-sans text-[15px] text-ink font-light outline-none transition-colors focus:border-gold placeholder:text-ink/[0.35]";
 
-  const selectClass =
-    "w-full py-3 px-3.5 pr-8 bg-white/65 border border-border rounded-sm font-sans text-[15px] text-ink font-light outline-none transition-colors focus:border-gold appearance-none cursor-pointer bg-no-repeat bg-[right_12px_center] bg-[length:10px_6px]";
+  const selectBase =
+    "w-full py-3 px-3.5 pr-8 bg-white/65 border rounded-sm font-sans text-[15px] text-ink font-light outline-none transition-colors focus:border-gold appearance-none cursor-pointer bg-no-repeat bg-[right_12px_center] bg-[length:10px_6px]";
 
-  const textareaClass =
-    "w-full py-3 px-3.5 bg-white/65 border border-border rounded-sm font-sans text-[15px] text-ink font-light outline-none transition-colors focus:border-gold placeholder:text-ink/[0.35] leading-[1.7] resize-none";
+  const textareaBase =
+    "w-full py-3 px-3.5 bg-white/65 border rounded-sm font-sans text-[15px] text-ink font-light outline-none transition-colors focus:border-gold placeholder:text-ink/[0.35] leading-[1.7] resize-none";
+
+  // Dynamic border color based on error state
+  const borderClass = (field: keyof ApplyFormData) =>
+    errors[field] ? "border-[#B07A65]" : "border-border";
+
+  const inputClass = (field: keyof ApplyFormData) =>
+    `${inputBase} ${borderClass(field)}`;
+
+  const selectClass = (field: keyof ApplyFormData) =>
+    `${selectBase} ${borderClass(field)}`;
+
+  const textareaClass = (field: keyof ApplyFormData) =>
+    `${textareaBase} ${borderClass(field)}`;
 
   const formProgress = ((currentStep + 1) / STEPS.length) * 100;
+
+  // Error message component
+  const FieldError = ({ field }: { field: keyof ApplyFormData }) => {
+    const err = errors[field];
+    if (!err) return null;
+    return (
+      <span className="text-[11px] text-[#B07A65] mt-0.5 font-light animate-[fadeUp_0.2s_ease]">
+        {err.message || "This field is required"}
+      </span>
+    );
+  };
 
   if (submitted) {
     return (
       <div className="flex items-center justify-center h-full">
         <div className="text-center">
-          <div className="text-[10px] tracking-[0.16em] uppercase text-gold font-normal mb-[18px]">
+          <div className="text-[12px] tracking-[0.14em] uppercase text-gold font-medium mb-[18px]">
             Applied
           </div>
           <div className="font-serif text-[42px] font-light leading-none tracking-tight text-ink">
             Thank you.
           </div>
-          <div className="text-[13.5px] text-ink-2 mt-2 font-light leading-[1.7]">
+          <div className="text-[15px] text-ink-2 mt-3 font-light leading-[1.7]">
             We&rsquo;ll be in touch within a week.
           </div>
         </div>
@@ -188,25 +247,33 @@ export default function ApplySlide() {
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1">
                   <label className="text-[11px] tracking-[0.1em] uppercase text-ink/50 font-medium">
-                    Full name
+                    Full name <span className="text-[#B07A65]">*</span>
                   </label>
                   <input
-                    className={inputClass}
+                    className={inputClass("fullName")}
                     type="text"
                     placeholder="Your name"
-                    {...register("fullName", { required: true })}
+                    {...register("fullName", { required: "Please enter your name" })}
                   />
+                  <FieldError field="fullName" />
                 </div>
                 <div className="flex flex-col gap-1">
                   <label className="text-[11px] tracking-[0.1em] uppercase text-ink/50 font-medium">
-                    Email
+                    Email <span className="text-[#B07A65]">*</span>
                   </label>
                   <input
-                    className={inputClass}
+                    className={inputClass("email")}
                     type="email"
                     placeholder="you@email.com"
-                    {...register("email", { required: true })}
+                    {...register("email", {
+                      required: "Please enter your email",
+                      pattern: {
+                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                        message: "Please enter a valid email",
+                      },
+                    })}
                   />
+                  <FieldError field="email" />
                 </div>
               </div>
               <div className="flex flex-col gap-1">
@@ -214,7 +281,7 @@ export default function ApplySlide() {
                   College / University
                 </label>
                 <input
-                  className={inputClass}
+                  className={inputClass("college")}
                   type="text"
                   placeholder="IIT Delhi, BITS Pilani, VIT&#8230;"
                   {...register("college")}
@@ -226,7 +293,7 @@ export default function ApplySlide() {
                     Year of study
                   </label>
                   <select
-                    className={selectClass}
+                    className={selectClass("yearOfStudy")}
                     defaultValue=""
                     {...register("yearOfStudy")}
                   >
@@ -246,7 +313,7 @@ export default function ApplySlide() {
                     Team size
                   </label>
                   <select
-                    className={selectClass}
+                    className={selectClass("teamSize")}
                     defaultValue=""
                     {...register("teamSize")}
                   >
@@ -284,45 +351,51 @@ export default function ApplySlide() {
             <div className="flex flex-col gap-4 max-w-[520px]">
               <div className="flex flex-col gap-1">
                 <label className="text-[11px] tracking-[0.1em] uppercase text-ink/50 font-medium">
-                  What problem are you solving?{" "}
+                  What problem are you solving? <span className="text-[#B07A65]">*</span>{" "}
                   <span className="text-ink/40 font-light normal-case tracking-normal text-[11px]">
                     &mdash; 1 to 2 sentences
                   </span>
                 </label>
                 <textarea
-                  className={textareaClass}
+                  className={textareaClass("problem")}
                   rows={3}
                   placeholder="Describe the problem clearly. Not the solution — the problem."
-                  {...register("problem", { required: true })}
+                  {...register("problem", {
+                    required: "Please describe the problem you're solving",
+                    minLength: { value: 20, message: "Please write at least a sentence or two" },
+                  })}
                 />
+                <FieldError field="problem" />
               </div>
               <div className="flex flex-col gap-1">
                 <label className="text-[11px] tracking-[0.1em] uppercase text-ink/50 font-medium">
-                  Who has this problem?{" "}
+                  Who has this problem? <span className="text-[#B07A65]">*</span>{" "}
                   <span className="text-ink/40 font-light normal-case tracking-normal text-[11px]">
                     &mdash; be specific
                   </span>
                 </label>
                 <input
-                  className={inputClass}
+                  className={inputClass("whoHasProblem")}
                   type="text"
                   placeholder="e.g. Student founders in tier-2 cities trying to raise their first round"
-                  {...register("whoHasProblem", { required: true })}
+                  {...register("whoHasProblem", { required: "Please describe who has this problem" })}
                 />
+                <FieldError field="whoHasProblem" />
               </div>
               <div className="flex flex-col gap-1">
                 <label className="text-[11px] tracking-[0.1em] uppercase text-ink/50 font-medium">
-                  Why now?{" "}
+                  Why now? <span className="text-[#B07A65]">*</span>{" "}
                   <span className="text-ink/40 font-light normal-case tracking-normal text-[11px]">
                     &mdash; what&rsquo;s changed that makes this the right time
                   </span>
                 </label>
                 <textarea
-                  className={textareaClass}
+                  className={textareaClass("whyNow")}
                   rows={3}
                   placeholder="What's shifted — technically, culturally, or in the market — that makes this urgent today?"
-                  {...register("whyNow", { required: true })}
+                  {...register("whyNow", { required: "Please explain why now is the right time" })}
                 />
+                <FieldError field="whyNow" />
               </div>
             </div>
             <div className="flex items-center gap-3 mt-7">
@@ -364,14 +437,18 @@ export default function ApplySlide() {
             <div className="max-w-[520px]">
               <div className="flex flex-col gap-1">
                 <label className="text-[11px] tracking-[0.1em] uppercase text-ink/50 font-medium">
-                  Your answer
+                  Your answer <span className="text-[#B07A65]">*</span>
                 </label>
                 <textarea
-                  className={textareaClass}
+                  className={textareaClass("whyYou")}
                   rows={6}
                   placeholder="Write openly. This is the most important question in the form."
-                  {...register("whyYou", { required: true })}
+                  {...register("whyYou", {
+                    required: "This is the most important question — please take your time",
+                    minLength: { value: 50, message: "Please write a bit more — at least a few sentences" },
+                  })}
                 />
+                <FieldError field="whyYou" />
               </div>
             </div>
             <div className="flex items-center gap-3 mt-7">
@@ -410,7 +487,7 @@ export default function ApplySlide() {
                     Hours per week you can commit
                   </label>
                   <select
-                    className={selectClass}
+                    className={selectClass("hoursPerWeek")}
                     defaultValue=""
                     {...register("hoursPerWeek")}
                   >
@@ -428,7 +505,7 @@ export default function ApplySlide() {
                     Where do you need most support?
                   </label>
                   <select
-                    className={selectClass}
+                    className={selectClass("supportArea")}
                     defaultValue=""
                     {...register("supportArea")}
                   >
@@ -450,7 +527,7 @@ export default function ApplySlide() {
                   </span>
                 </label>
                 <textarea
-                  className={textareaClass}
+                  className={textareaClass("successVision")}
                   rows={3}
                   placeholder="Not just 'raise money' — what product, what users, what milestone would make you proud?"
                   {...register("successVision")}
@@ -498,13 +575,19 @@ export default function ApplySlide() {
                   Loom link
                 </label>
                 <input
-                  className={inputClass}
+                  className={inputClass("loomLink")}
                   type="url"
                   placeholder="https://loom.com/share/&#8230;"
-                  {...register("loomLink")}
+                  {...register("loomLink", {
+                    pattern: {
+                      value: /^https?:\/\/.+/,
+                      message: "Please enter a valid URL starting with https://",
+                    },
+                  })}
                 />
+                <FieldError field="loomLink" />
               </div>
-              <p className="text-[11.5px] text-ink/[0.28] italic font-light leading-[1.7]">
+              <p className="text-[11.5px] text-ink/[0.35] italic font-light leading-[1.7]">
                 Cover: the problem, why you care, what you&rsquo;ve done so far.
                 Under 3 minutes.
               </p>
@@ -525,6 +608,14 @@ export default function ApplySlide() {
                 {submitting ? "Submitting\u2026" : "Submit application \u2192"}
               </button>
             </div>
+            {submitError && (
+              <p className="text-[13px] text-[#B07A65] mt-4 font-light">
+                Something went wrong. Please try again or email us directly at{" "}
+                <a href="mailto:rohansharma.8574@gmail.com" className="underline">
+                  rohansharma.8574@gmail.com
+                </a>
+              </p>
+            )}
           </div>
         </form>
 
