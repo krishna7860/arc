@@ -115,7 +115,7 @@ export async function sendApplicationNotification(data: ApplicationData) {
   `;
 
   await resend.emails.send({
-    from: "Arc Applications <onboarding@resend.dev>",
+    from: "Arc Applications <applications@arcprogram.xyz>",
     to: "rohansharma.8574@gmail.com",
     replyTo: data.email,
     subject: `New application: ${data.fullName}`,
@@ -202,7 +202,7 @@ export async function sendApplicantConfirmation(data: ApplicationData) {
   `;
 
   await resend.emails.send({
-    from: "Krishna from Arc <onboarding@resend.dev>",
+    from: "Krishna from Arc <krishna@arcprogram.xyz>",
     to: data.email,
     replyTo: "rohansharma.8574@gmail.com",
     subject: "We received your application — Arc · 01",
