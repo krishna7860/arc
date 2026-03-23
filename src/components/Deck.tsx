@@ -124,7 +124,7 @@ export default function Deck() {
           ref={setSlideRef(i)}
           className={`slide overflow-hidden ${
             DOT_GRID_SLIDES.has(i) ? "dot-grid-bg" : ""
-          } ${NO_PADDING_SLIDES.has(i) ? "!p-0 !justify-stretch" : ""}`}
+          } ${NO_PADDING_SLIDES.has(i) ? "!p-0 !justify-normal" : ""}`}
         >
           {slideContent}
         </div>

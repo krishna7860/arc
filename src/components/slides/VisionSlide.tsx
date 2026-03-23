@@ -93,7 +93,7 @@ export default function VisionSlide() {
         <div className="mt-5">
           <a
             href="mailto:rohansharma.8574@gmail.com?subject=Supporting the Vision"
-            className="inline-flex items-center gap-2.5 py-2.5 px-5 border border-gold/55 rounded-sm bg-gold/10 transition-all hover:bg-gold/[0.16] hover:border-gold"
+            className="relative z-10 inline-flex items-center gap-2.5 py-2.5 px-5 border border-gold/55 rounded-sm bg-gold/10 transition-all hover:bg-gold/[0.16] hover:border-gold cursor-pointer"
           >
             <span className="text-[10px] tracking-[0.14em] uppercase text-gold font-normal">
               Want to support the vision?
