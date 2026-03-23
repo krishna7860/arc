@@ -3,25 +3,70 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #F6F4EF;
+  --ink: #111110;
+  --ink-2: #666560;
+  --ink-3: #AEADA7;
+  --gold: #8B6338;
+  --gold-light: rgba(139,99,56,0.12);
+  --border: rgba(17,17,16,0.09);
+  --card: rgba(255,255,255,0.55);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+html, body {
+  height: 100%;
+  background: var(--bg);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* Slide transitions */
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 56px 72px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0s;
+}
+
+.slide.entering {
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.slide.leaving {
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.slide.active {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0) !important;
+}
+
+/* Dot grid background for content slides */
+.dot-grid-bg {
+  background-image: radial-gradient(circle, rgba(139,99,56,0.22) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: 0 0;
+}
+
+/* Multi-step form transitions */
+.fstep {
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fstep.active-step {
+  opacity: 1 !important;
+  pointer-events: all !important;
+  transform: translateX(0) !important;
 }
