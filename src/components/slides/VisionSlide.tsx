@@ -40,7 +40,7 @@ export default function VisionSlide() {
 
       {/* Right half: content */}
       <div className="flex flex-col justify-center px-16 py-16 pl-14 relative">
-        <div className="text-[10px] tracking-[0.16em] uppercase text-gold font-normal mb-8">
+        <div className="text-[12px] tracking-[0.14em] uppercase text-gold font-medium mb-8">
           Vision
         </div>
 

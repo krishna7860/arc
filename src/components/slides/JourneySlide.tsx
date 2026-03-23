@@ -28,7 +28,7 @@ const ROWS = [
 export default function JourneySlide() {
   return (
     <>
-      <div className="text-[10px] tracking-[0.16em] uppercase text-gold font-normal mb-[18px]">
+      <div className="text-[12px] tracking-[0.14em] uppercase text-gold font-medium mb-[18px]">
         The Journey
       </div>
       <div className="font-serif text-[36px] font-light leading-none tracking-tight text-ink">
@@ -42,7 +42,7 @@ export default function JourneySlide() {
               i === ROWS.length - 1 ? "border-b border-b-border" : ""
             }`}
           >
-            <div className="text-[11px] tracking-[0.1em] uppercase text-gold pt-[3px]">
+            <div className="text-[12px] tracking-[0.1em] uppercase text-gold font-medium pt-[3px]">
               {row.mo}
             </div>
             <div>

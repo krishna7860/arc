@@ -30,7 +30,7 @@ export default function WhoSlide() {
         <circle cx="300" cy="0" r="100" fill="none" stroke="#8B6338" strokeWidth="0.5" opacity="0.4" />
       </svg>
 
-      <div className="text-[10px] tracking-[0.16em] uppercase text-gold font-normal mb-[18px]">
+      <div className="text-[12px] tracking-[0.14em] uppercase text-gold font-medium mb-[18px]">
         Who this is for
       </div>
       <div className="font-serif text-[42px] font-light leading-none tracking-tight text-ink">

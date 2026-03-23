@@ -27,7 +27,7 @@ export default function ProgramSlide() {
         02
       </div>
 
-      <div className="text-[10px] tracking-[0.16em] uppercase text-gold font-normal mb-[18px]">
+      <div className="text-[12px] tracking-[0.14em] uppercase text-gold font-medium mb-[18px]">
         The Program
       </div>
       <div className="font-serif text-[42px] font-light leading-none tracking-tight text-ink">
@@ -48,13 +48,13 @@ export default function ProgramSlide() {
             <div className="text-sm text-ink-2 leading-[1.75] font-light">
               {phase.desc}
             </div>
-            <div className="text-[10px] tracking-[0.12em] uppercase text-gold mt-3">
+            <div className="text-[11px] tracking-[0.1em] uppercase text-gold font-medium mt-3">
               {phase.mo}
             </div>
           </div>
         ))}
       </div>
-      <div className="mt-5 text-xs text-ink/30 font-light tracking-wide">
+      <div className="mt-5 text-[13px] text-ink/40 font-light tracking-wide">
         Fully online &middot; Async-first &middot; 1&ndash;2 founders per cohort &middot; $50K&ndash;$300K pre-seed target
       </div>
     </>

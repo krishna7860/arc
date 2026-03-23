@@ -31,7 +31,7 @@ export default function DealSlide() {
         <circle cx="0" cy="320" r="100" fill="none" stroke="#8B6338" strokeWidth="0.5" opacity="0.4" />
       </svg>
 
-      <div className="text-[10px] tracking-[0.16em] uppercase text-gold font-normal mb-[18px]">
+      <div className="text-[12px] tracking-[0.14em] uppercase text-gold font-medium mb-[18px]">
         The Deal
       </div>
       <div className="grid grid-cols-[1fr_1.1fr] gap-16 items-start mt-2">
@@ -61,7 +61,7 @@ export default function DealSlide() {
                     d.num
                   )}
                 </div>
-                <div className="text-[10px] tracking-[0.08em] uppercase text-ink/30 mt-1.5">
+                <div className="text-[11px] tracking-[0.08em] uppercase text-ink/40 mt-1.5">
                   {d.lbl}
                 </div>
               </div>
@@ -69,7 +69,7 @@ export default function DealSlide() {
           </div>
         </div>
         <div>
-          <div className="text-[10px] tracking-[0.14em] uppercase text-gold mb-2.5">
+          <div className="text-[12px] tracking-[0.12em] uppercase text-gold font-medium mb-2.5">
             What we can and cannot do
           </div>
           <ul className="list-none">

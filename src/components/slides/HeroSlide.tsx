@@ -19,10 +19,10 @@ export default function HeroSlide({ onNext }: { onNext: () => void }) {
           className="flex gap-2 mb-6"
           style={{ animation: "fadeUp 0.7s ease both 0.3s" }}
         >
-          <span className="inline-block text-[10px] tracking-[0.1em] uppercase px-2.5 py-1 border border-ink/[0.28] rounded-sm text-ink/60 font-normal">
+          <span className="inline-block text-[11px] tracking-[0.1em] uppercase px-2.5 py-1 border border-ink/[0.28] rounded-sm text-ink/60 font-normal">
             Online Program
           </span>
-          <span className="inline-block text-[10px] tracking-[0.1em] uppercase px-2.5 py-1 border border-ink/[0.28] rounded-sm text-ink/60 font-normal">
+          <span className="inline-block text-[11px] tracking-[0.1em] uppercase px-2.5 py-1 border border-ink/[0.28] rounded-sm text-ink/60 font-normal">
             Cohort 01 &middot; Open
           </span>
         </div>

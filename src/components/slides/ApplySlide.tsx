@@ -87,13 +87,13 @@ export default function ApplySlide() {
   };
 
   const inputClass =
-    "w-full py-[11px] px-[13px] bg-white/65 border border-border rounded-sm font-sans text-[13.5px] text-ink font-light outline-none transition-colors focus:border-gold placeholder:text-ink/[0.28]";
+    "w-full py-3 px-3.5 bg-white/65 border border-border rounded-sm font-sans text-[15px] text-ink font-light outline-none transition-colors focus:border-gold placeholder:text-ink/[0.35]";
 
   const selectClass =
-    "w-full py-[11px] px-[13px] pr-8 bg-white/65 border border-border rounded-sm font-sans text-[13.5px] text-ink font-light outline-none transition-colors focus:border-gold appearance-none cursor-pointer bg-no-repeat bg-[right_12px_center] bg-[length:10px_6px]";
+    "w-full py-3 px-3.5 pr-8 bg-white/65 border border-border rounded-sm font-sans text-[15px] text-ink font-light outline-none transition-colors focus:border-gold appearance-none cursor-pointer bg-no-repeat bg-[right_12px_center] bg-[length:10px_6px]";
 
   const textareaClass =
-    "w-full py-[11px] px-[13px] bg-white/65 border border-border rounded-sm font-sans text-[13.5px] text-ink font-light outline-none transition-colors focus:border-gold placeholder:text-ink/[0.28] leading-[1.7] resize-none";
+    "w-full py-3 px-3.5 bg-white/65 border border-border rounded-sm font-sans text-[15px] text-ink font-light outline-none transition-colors focus:border-gold placeholder:text-ink/[0.35] leading-[1.7] resize-none";
 
   const formProgress = ((currentStep + 1) / STEPS.length) * 100;
 
@@ -119,7 +119,7 @@ export default function ApplySlide() {
     <div className="grid grid-cols-[1fr_1.8fr] h-full">
       {/* Left: static info */}
       <div className="flex flex-col justify-end py-14 pl-[72px] pr-12 border-r border-border">
-        <div className="text-[10px] tracking-[0.16em] uppercase text-gold font-normal mb-[18px]">
+        <div className="text-[12px] tracking-[0.14em] uppercase text-gold font-medium mb-[18px]">
           Arc &middot; 01 &middot; Apply
         </div>
         <div className="font-serif text-[clamp(34px,3.8vw,50px)] font-light leading-[1.05] tracking-tight text-ink mb-5">
@@ -142,7 +142,7 @@ export default function ApplySlide() {
               className="flex items-center gap-3 cursor-pointer group"
             >
               <div
-                className={`w-[22px] h-[22px] rounded-full border flex items-center justify-center text-[10px] tracking-[0.06em] transition-all flex-shrink-0 ${
+                className={`w-6 h-6 rounded-full border flex items-center justify-center text-[11px] tracking-[0.06em] transition-all flex-shrink-0 ${
                   i === currentStep
                     ? "bg-ink border-ink text-bg"
                     : i < currentStep
@@ -153,7 +153,7 @@ export default function ApplySlide() {
                 {step.num}
               </div>
               <span
-                className={`text-xs transition-colors ${
+                className={`text-[13px] transition-colors ${
                   i === currentStep
                     ? "text-ink font-medium"
                     : "text-ink/45 group-hover:text-ink-2"
@@ -165,7 +165,7 @@ export default function ApplySlide() {
           ))}
         </div>
 
-        <p className="text-[11px] text-ink/25 mt-6 italic font-light">
+        <p className="text-[12px] text-ink/35 mt-6 italic font-light">
           ~10 minutes &middot; We read every application
         </p>
       </div>
@@ -178,7 +178,7 @@ export default function ApplySlide() {
             className="fstep active-step absolute inset-0 overflow-y-auto px-[52px] pr-[72px] py-14 flex flex-col justify-center"
             data-index="0"
           >
-            <div className="text-[10px] tracking-[0.16em] uppercase text-gold mb-3">
+            <div className="text-[11.5px] tracking-[0.14em] uppercase text-gold mb-3 font-medium">
               01 &middot; You
             </div>
             <h3 className="font-serif text-[28px] font-light mb-7 leading-[1.2]">
@@ -187,7 +187,7 @@ export default function ApplySlide() {
             <div className="flex flex-col gap-3.5 max-w-[520px]">
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1">
-                  <label className="text-[9.5px] tracking-[0.12em] uppercase text-ink/35">
+                  <label className="text-[11px] tracking-[0.1em] uppercase text-ink/50 font-medium">
                     Full name
                   </label>
                   <input
@@ -198,7 +198,7 @@ export default function ApplySlide() {
                   />
                 </div>
                 <div className="flex flex-col gap-1">
-                  <label className="text-[9.5px] tracking-[0.12em] uppercase text-ink/35">
+                  <label className="text-[11px] tracking-[0.1em] uppercase text-ink/50 font-medium">
                     Email
                   </label>
                   <input
@@ -210,7 +210,7 @@ export default function ApplySlide() {
                 </div>
               </div>
               <div className="flex flex-col gap-1">
-                <label className="text-[9.5px] tracking-[0.12em] uppercase text-ink/35">
+                <label className="text-[11px] tracking-[0.1em] uppercase text-ink/50 font-medium">
                   College / University
                 </label>
                 <input
@@ -222,7 +222,7 @@ export default function ApplySlide() {
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1">
-                  <label className="text-[9.5px] tracking-[0.12em] uppercase text-ink/35">
+                  <label className="text-[11px] tracking-[0.1em] uppercase text-ink/50 font-medium">
                     Year of study
                   </label>
                   <select
@@ -242,7 +242,7 @@ export default function ApplySlide() {
                   </select>
                 </div>
                 <div className="flex flex-col gap-1">
-                  <label className="text-[9.5px] tracking-[0.12em] uppercase text-ink/35">
+                  <label className="text-[11px] tracking-[0.1em] uppercase text-ink/50 font-medium">
                     Team size
                   </label>
                   <select
@@ -275,7 +275,7 @@ export default function ApplySlide() {
             className="fstep absolute inset-0 overflow-y-auto px-[52px] pr-[72px] py-14 flex flex-col justify-center opacity-0 pointer-events-none translate-x-8"
             data-index="1"
           >
-            <div className="text-[10px] tracking-[0.16em] uppercase text-gold mb-3">
+            <div className="text-[11.5px] tracking-[0.14em] uppercase text-gold mb-3 font-medium">
               02 &middot; The problem
             </div>
             <h3 className="font-serif text-[28px] font-light mb-7 leading-[1.2]">
@@ -283,9 +283,9 @@ export default function ApplySlide() {
             </h3>
             <div className="flex flex-col gap-4 max-w-[520px]">
               <div className="flex flex-col gap-1">
-                <label className="text-[9.5px] tracking-[0.12em] uppercase text-ink/35">
+                <label className="text-[11px] tracking-[0.1em] uppercase text-ink/50 font-medium">
                   What problem are you solving?{" "}
-                  <span className="text-ink/30 font-light normal-case tracking-normal text-[10px]">
+                  <span className="text-ink/40 font-light normal-case tracking-normal text-[11px]">
                     &mdash; 1 to 2 sentences
                   </span>
                 </label>
@@ -297,9 +297,9 @@ export default function ApplySlide() {
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <label className="text-[9.5px] tracking-[0.12em] uppercase text-ink/35">
+                <label className="text-[11px] tracking-[0.1em] uppercase text-ink/50 font-medium">
                   Who has this problem?{" "}
-                  <span className="text-ink/30 font-light normal-case tracking-normal text-[10px]">
+                  <span className="text-ink/40 font-light normal-case tracking-normal text-[11px]">
                     &mdash; be specific
                   </span>
                 </label>
@@ -311,9 +311,9 @@ export default function ApplySlide() {
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <label className="text-[9.5px] tracking-[0.12em] uppercase text-ink/35">
+                <label className="text-[11px] tracking-[0.1em] uppercase text-ink/50 font-medium">
                   Why now?{" "}
-                  <span className="text-ink/30 font-light normal-case tracking-normal text-[10px]">
+                  <span className="text-ink/40 font-light normal-case tracking-normal text-[11px]">
                     &mdash; what&rsquo;s changed that makes this the right time
                   </span>
                 </label>
@@ -348,7 +348,7 @@ export default function ApplySlide() {
             className="fstep absolute inset-0 overflow-y-auto px-[52px] pr-[72px] py-14 flex flex-col justify-center opacity-0 pointer-events-none translate-x-8"
             data-index="2"
           >
-            <div className="text-[10px] tracking-[0.16em] uppercase text-gold mb-3">
+            <div className="text-[11.5px] tracking-[0.14em] uppercase text-gold mb-3 font-medium">
               03 &middot; Why you
             </div>
             <h3 className="font-serif text-[28px] font-light mb-3 leading-[1.2]">
@@ -356,14 +356,14 @@ export default function ApplySlide() {
               <br />
               to build this?
             </h3>
-            <p className="text-[13.5px] text-ink/[0.38] font-light mb-7 leading-[1.7] max-w-[460px]">
+            <p className="text-[14.5px] text-ink/[0.45] font-light mb-7 leading-[1.7] max-w-[460px]">
               Be honest, not impressive. Do you live this problem? Have you tried
               to solve it before? What do you know about this space that others
               don&rsquo;t?
             </p>
             <div className="max-w-[520px]">
               <div className="flex flex-col gap-1">
-                <label className="text-[9.5px] tracking-[0.12em] uppercase text-ink/35">
+                <label className="text-[11px] tracking-[0.1em] uppercase text-ink/50 font-medium">
                   Your answer
                 </label>
                 <textarea
@@ -397,7 +397,7 @@ export default function ApplySlide() {
             className="fstep absolute inset-0 overflow-y-auto px-[52px] pr-[72px] py-14 flex flex-col justify-center opacity-0 pointer-events-none translate-x-8"
             data-index="3"
           >
-            <div className="text-[10px] tracking-[0.16em] uppercase text-gold mb-3">
+            <div className="text-[11.5px] tracking-[0.14em] uppercase text-gold mb-3 font-medium">
               04 &middot; Commitment
             </div>
             <h3 className="font-serif text-[28px] font-light mb-7 leading-[1.2]">
@@ -406,7 +406,7 @@ export default function ApplySlide() {
             <div className="flex flex-col gap-4 max-w-[520px]">
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1">
-                  <label className="text-[9.5px] tracking-[0.12em] uppercase text-ink/35">
+                  <label className="text-[11px] tracking-[0.1em] uppercase text-ink/50 font-medium">
                     Hours per week you can commit
                   </label>
                   <select
@@ -424,7 +424,7 @@ export default function ApplySlide() {
                   </select>
                 </div>
                 <div className="flex flex-col gap-1">
-                  <label className="text-[9.5px] tracking-[0.12em] uppercase text-ink/35">
+                  <label className="text-[11px] tracking-[0.1em] uppercase text-ink/50 font-medium">
                     Where do you need most support?
                   </label>
                   <select
@@ -443,9 +443,9 @@ export default function ApplySlide() {
                 </div>
               </div>
               <div className="flex flex-col gap-1">
-                <label className="text-[9.5px] tracking-[0.12em] uppercase text-ink/35">
+                <label className="text-[11px] tracking-[0.1em] uppercase text-ink/50 font-medium">
                   What does success look like at the end of 6 months?{" "}
-                  <span className="text-ink/30 font-light normal-case tracking-normal text-[10px]">
+                  <span className="text-ink/40 font-light normal-case tracking-normal text-[11px]">
                     &mdash; be specific
                   </span>
                 </label>
@@ -480,7 +480,7 @@ export default function ApplySlide() {
             className="fstep absolute inset-0 overflow-y-auto px-[52px] pr-[72px] py-14 flex flex-col justify-center opacity-0 pointer-events-none translate-x-8"
             data-index="4"
           >
-            <div className="text-[10px] tracking-[0.16em] uppercase text-gold mb-3">
+            <div className="text-[11.5px] tracking-[0.14em] uppercase text-gold mb-3 font-medium">
               05 &middot; Loom video
             </div>
             <h3 className="font-serif text-[28px] font-light mb-3 leading-[1.2]">
@@ -488,13 +488,13 @@ export default function ApplySlide() {
               <br />
               let me hear you.
             </h3>
-            <p className="text-[13.5px] text-ink/[0.38] font-light mb-8 leading-[1.8] max-w-[460px]">
+            <p className="text-[14.5px] text-ink/[0.45] font-light mb-8 leading-[1.8] max-w-[460px]">
               Record a 3-minute Loom. No script needed. Walk me through your idea
               and why you&rsquo;re building it. Just talk &mdash; that&rsquo;s it.
             </p>
             <div className="max-w-[520px] flex flex-col gap-2">
               <div className="flex flex-col gap-1">
-                <label className="text-[9.5px] tracking-[0.12em] uppercase text-ink/35">
+                <label className="text-[11px] tracking-[0.1em] uppercase text-ink/50 font-medium">
                   Loom link
                 </label>
                 <input

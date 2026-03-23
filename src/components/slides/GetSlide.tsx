@@ -35,7 +35,7 @@ const CARDS = [
 export default function GetSlide() {
   return (
     <>
-      <div className="text-[10px] tracking-[0.16em] uppercase text-gold font-normal mb-[18px]">
+      <div className="text-[12px] tracking-[0.14em] uppercase text-gold font-medium mb-[18px]">
         What You Get
       </div>
       <div className="font-serif text-[42px] font-light leading-none tracking-tight text-ink">
@@ -51,7 +51,7 @@ export default function GetSlide() {
               {card.amt}
               <span className="text-sm">{card.unit}</span>
             </div>
-            <div className="text-[10px] tracking-[0.12em] uppercase text-gold my-2 mb-3.5">
+            <div className="text-[11px] tracking-[0.1em] uppercase text-gold font-medium my-2 mb-3.5">
               {card.lbl}
             </div>
             <ul className="list-none">
